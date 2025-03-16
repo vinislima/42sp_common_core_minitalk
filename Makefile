@@ -6,7 +6,7 @@
 #    By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 21:17:40 by vinda-si          #+#    #+#              #
-#    Updated: 2025/03/13 20:08:05 by vinda-si         ###   ########.fr        #
+#    Updated: 2025/03/13 21:02:32 by vinda-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,19 +32,19 @@ all: $(CLIENT_NAME) $(SERVER_NAME)
 bonus: $(CLIENT_BONUS_NAME) $(SERVER_BONUS_NAME)
 
 %.o: %.c
-		$(CC) $(CFLAGS) -c $< -o $@
+		$(CC) $(CFLAGS) -c $< -g -o $@
 
 $(CLIENT_NAME): $(CLIENT_OBJS) $(LIBFT_ARCHIVE)
-		$(CC) $(CFLAGS) -o $@ $(CLIENT_OBJS) -L$(LIBFT_PATH) -lft
+		$(CC) $(CFLAGS) -g -o $@ $(CLIENT_OBJS) -L$(LIBFT_PATH) -lft
 
 $(SERVER_NAME): $(SERVER_OBJS) $(LIBFT_ARCHIVE)
-		$(CC) $(CFLAGS) -o $@ $(SERVER_OBJS) -L$(LIBFT_PATH) -lft
+		$(CC) $(CFLAGS) -g -o $@ $(SERVER_OBJS) -L$(LIBFT_PATH) -lft
 
 $(CLIENT_BONUS_NAME): $(CLIENT_BONUS_OBJS) $(LIBFT_ARCHIVE)
-		$(CC) $(CFLAGS) -o $@ $(CLIENT_BONUS_OBJS) -L$(LIBFT_PATH) -lft
+		$(CC) $(CFLAGS) -g -o $@ $(CLIENT_BONUS_OBJS) -L$(LIBFT_PATH) -lft
 
 $(SERVER_BONUS_NAME): $(SERVER_BONUS_OBJS) $(LIBFT_ARCHIVE)
-		$(CC) $(CFLAGS) -o $@ $(SERVER_BONUS_OBJS) -L$(LIBFT_PATH) -lft
+		$(CC) $(CFLAGS) -g -o $@ $(SERVER_BONUS_OBJS) -L$(LIBFT_PATH) -lft
 
 $(LIBFT_ARCHIVE):
 	$(MAKE) -C $(LIBFT_PATH)

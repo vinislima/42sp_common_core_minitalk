@@ -6,7 +6,7 @@
 #    By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/23 14:34:44 by vinda-si          #+#    #+#              #
-#    Updated: 2025/03/12 20:30:25 by vinda-si         ###   ########.fr        #
+#    Updated: 2025/03/13 21:02:29 by vinda-si         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ NAME = libft.a
 all: $(NAME)
 
 %.o: %.c $(HEADERS)
-		$(CC) $(CFLAGS) -c $< -o $@
+		$(CC) $(CFLAGS) -c $< -g -o $@
 
 $(NAME): $(OBJS)
 		$(AR) q $(NAME) $(OBJS)

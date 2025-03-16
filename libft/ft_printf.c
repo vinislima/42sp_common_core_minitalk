@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 10:10:29 by vinda-si          #+#    #+#             */
-/*   Updated: 2025/03/12 21:53:58 by vinda-si         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:33:22 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	ft_printf(const char *string, ...)
 	int		count;
 	va_list	args;
 
+	if (!string)
+		return (-1);
 	index = 0;
 	count = 0;
 	va_start (args, string);
-	if (!string)
-		return (-1);
 	while (string[index] != '\0')
 	{
 		if (string[index] == '%')
