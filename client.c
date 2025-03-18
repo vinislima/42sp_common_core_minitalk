@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 20:22:27 by vinda-si          #+#    #+#             */
-/*   Updated: 2025/03/18 19:02:03 by vinda-si         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:49:46 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,46 +69,88 @@ void	send_char(char c, pid_t pid)
 			usleep(10);
 	}
 }
-
+// a função send_str envia uma string para o servidor
+// ela recebe a string e o pid do servidor
+// ela envia a string caractere por caractere
+// e no final envia o caractere nulo para indicar o fim da string
 void	send_str(char *str, pid_t pid)
 {
+	// variável para controlar o caractere
 	int	piece;
-
+	// inicializa o caractere com 0
 	piece = 0;
+	// enquanto o caractere não for nulo
+	// enviar o caractere para o servidor
 	while (str[piece])
 	{
+		// chama a função send_char para enviar o caractere
+		// passando o caractere e o pid do servidor
 		send_char(str[piece], pid);
+		// incrementa o caractere para enviar o próximo
 		piece++;
 	}
+	// após enviar a string, envia o caractere nulo
+	// para indicar o fim da string
 	send_char(0, pid);
 }
-
+// a função sig_usr é o manipulador de sinais
+// ela recebe o sinal e verifica qual é o sinal
+// se for SIGUSR1, atribui o valor 1 para a variável
+// global g_bit_control para indicar que o bit foi recebido
+// se for SIGUSR2, sai do programa
+// indicando que o servidor terminou
 void	sig_usr(int sig)
 {
+	// verifica qual é o sinal
+	// se for SIGUSR1, atribui o valor 1 para a variável
+	// global g_bit_control para indicar que o bit foi recebido
 	if (sig == SIGUSR1)
 		g_bit_control = 1;
+	// se for SIGUSR2, sai do programa
+	// indicando que o servidor terminou
 	else if (sig == SIGUSR2)
 		exit(EXIT_SUCCESS);
 }
-
+// na função main iremos fazer a validação dos argumentos
+// e chamar as funções para enviar a string para o servidor
+// ela recebe os argumentos da linha de comando
 int	main(int argc, char **argv)
 {
+	// pid_t é um tipo de dado para armazenar o pid
+	// que é o identificador do processo
+	// pid é a variável que irá armazenar o pid do servidor
 	pid_t	pid;
-
+	// nesse if é realizada a validação dos argumentos
+	// se o número de argumentos for diferente de 3
+	// é mostrada uma mensagem de erro e sai do programa
+	// e o programa é encerrado
 	if (argc != 3)
 	{
 		ft_printf("Usage: ./client <pid> <string>\n");
 		exit(EXIT_FAILURE);
 	}
+	// é chamada a função signal para registrar o manipulador de sinais
+	// de SIGUSR1 e SIGUSR2
 	signal(SIGUSR1, &sig_usr);
 	signal(SIGUSR2, &sig_usr);
+	// converte o primeiro argumento recebido para um inteiro
+	// utilizando a função ft_atoi da libft
 	pid = ft_atoi(argv[1]);
+	// se o pid for não for válido
+	// mostra uma mensagem de erro e sai do programa
 	if (!pid)
 	{
 		ft_printf("%s is invalid like pid\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
+	// caso contrário chama a função send_str
+	// para enviar a string para o servidor
+	// passando a string e o pid do servidor
 	send_str(argv[2], pid);
+	// após enviar a string, o programa fica em loop
+	// esperando o servidor enviar o sinal de fim
+	// para não sobrecarregar o processador
 	while (1)
+		// usado o sleep para não sobrecarregar o processador
 		sleep(1);
 }
