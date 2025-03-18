@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:13:04 by vinda-si          #+#    #+#             */
-/*   Updated: 2025/03/15 22:53:53 by vinda-si         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:49:33 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	sig_usr(int sig, siginfo_t *info, void *context)
 	if (bit < 0 && !c)
 		ft_printf("\nClient say: ");
 	if (bit < 0)
-		bit = __CHAR_BIT__ * sizeof(c) - 1;
+		bit = 8 * sizeof(c) - 1;
 	if (sig == SIGUSR1)
 		c |= 1 << bit;
 	else if (sig == SIGUSR2)
