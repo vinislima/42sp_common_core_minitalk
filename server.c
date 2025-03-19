@@ -6,7 +6,7 @@
 /*   By: vinda-si <vinda-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:13:04 by vinda-si          #+#    #+#             */
-/*   Updated: 2025/03/18 21:27:48 by vinda-si         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:18:50 by vinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,38 @@ void	sig_usr(int sig, siginfo_t *info, void *context)
 	// a variável context é usada para armazenar o contexto do processo
 	// nesse caso declarada para suprimir o aviso de variável não utilizada
 	(void)context;
+	// a função kill é usada para enviar um sinal para um processo
+	// ela recebe o pid do processo e o sinal a ser enviado
+	// se o pid for menor que 0, a função retorna -1 e o erro é impresso
+	// e o programa é encerrado
 	if (kill(info->si_pid, 0) < 0)
 	{
 		ft_printf("ERROR: can't send sig to pid: %d\n", info->si_pid);
 		exit(EXIT_FAILURE);
 	}
+	// se o bit for menor que 0 e o caractere for diferente de 0
+	// é impresso o caractere e o bit é reiniciado
 	if (bit < 0 && !c)
 		ft_printf("\nClient say: ");
-	if (bit < 0)
+	// se o bit for somente menor que 0
+	// o bit é reiniciado
+		if (bit < 0)
+		// o bit é reiniciado para o valor de 7
+		// para começar a receber os bits
 		bit = 8 * sizeof(c) - 1;
+	// se o sinal for SIGUSR1
+	// o bit é deslocado para a esquerda
+	// e o caractere é atualizado com o bit
 	if (sig == SIGUSR1)
+		// o bit é deslocado para a esquerda
+		// e o caractere é atualizado com o bit
 		c |= 1 << bit;
+	// se o sinal for SIGUSR2
+	// o bit é deslocado para a esquerda
+	// e o caractere é atualizado com o bit	
 	else if (sig == SIGUSR2)
+		// o bit é deslocado para a esquerda
+		// e o caractere é atualizado com o bit
 		c &= ~(1 << bit);
 	if (!bit && c)
 		ft_putchar_fd(c, 1);
