@@ -106,7 +106,9 @@ void	sig_usr(int sig, siginfo_t *info, void *context)
 	// e o caractere é atualizado com o bit	
 	else if (sig == SIGUSR2)
 		// o bit é deslocado para a esquerda
-		// e o caractere é atualizado com o bit
+		// e o caractere é atualizado com o bit.
+		// aqui é aplicado o NOT bit-a-bit (~) e
+		// AND bit-a-bit (&=) para manipular os bits
 		c &= ~(1 << bit);
 	// o simbolo de exclamação é usado para negar o valor
 	// transformando o bit em um "bool", sendo 0 para verdadeiro e 1 para falso
